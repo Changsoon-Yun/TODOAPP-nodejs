@@ -20,11 +20,12 @@
     <ul class="list-group">
       <% for (var i = 0; i < posts.length; i++){ %>
       <li class="list-group-item" data-id="<%= posts[i]._id %>">
-        <p>글번호 : <%= posts[i]._id %></p>
-        <h4>할일 제목 : <%= posts[i].제목 %></h4>
-        <p>할일 마감날짜 : <%= posts[i].날짜 %></p>
+        <a href="/detail/<%= posts[i]._id %>">
+          <p>글번호 : <%= posts[i]._id %></p>
+          <h4>할일 제목 : <%= posts[i].제목 %></h4>
+          <p>할일 마감날짜 : <%= posts[i].날짜 %></p>
+        </a>
         <button class="delete" data-id="<%= posts[i]._id %>">삭제</button>
-        <button class="edit" data-id="<%= posts[i]._id %>">수정</button>
       </li>
       <% } %>
     </ul>
@@ -39,18 +40,6 @@
         }).done((res) => {
           $(this).parent("li").fadeOut();
         });
-      });
-    </script>
-    <script>
-      $(".list-group-item").click(function (e) {
-        console.log(e);
-        window.location.href = `/detail/${e.target.dataset.id}`;
-      });
-    </script>
-    <script>
-      $(".edit").click(function (e) {
-        console.log(e);
-        window.location.href = `/edit/${e.target.dataset.id}`;
       });
     </script>
     <script
