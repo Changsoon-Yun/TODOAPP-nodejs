@@ -111,15 +111,9 @@ app.get("/login", (req, res) => {
   res.render("login.ejs");
 });
 
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    failureRedirect: "/fail",
-  }),
-  (req, res) => {
-    res.redirect("/");
-  }
-);
+app.post("/login", passport.authenticate("local"), (req, res) => {
+  res.redirect("/");
+});
 
 passport.use(
   new LocalStrategy(
@@ -148,3 +142,11 @@ passport.use(
     }
   )
 );
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  done(null, {});
+});
